@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  ShowView,
   ReferenceManyField,
   ShowContextProvider,
   useShowContext,
@@ -8,6 +9,7 @@ import {
 import AlbumSongs from './AlbumSongs'
 import AlbumDetails from './AlbumDetails'
 import AlbumActions from './AlbumActions'
+import { Title } from '../common'
 
 const AlbumShowLayout = (props) => {
   const { loading, ...context } = useShowContext(props)
@@ -37,11 +39,17 @@ const AlbumShowLayout = (props) => {
   )
 }
 
+const AlbumTitle = ({ record }) => {
+  return <Title subTitle={record.name} />
+}
+
 const AlbumShow = (props) => {
   const controllerProps = useShowController(props)
   return (
     <ShowContextProvider value={controllerProps}>
-      <AlbumShowLayout {...props} {...controllerProps} />
+      <ShowView title={<AlbumTitle />}>
+        <AlbumShowLayout {...props} {...controllerProps} />
+      </ShowView>
     </ShowContextProvider>
   )
 }
